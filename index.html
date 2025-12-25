@@ -17,33 +17,56 @@ body {
     font-size: 16px;
 }
 
-/* タイトル帯 */
+/* タイトル帯（薄型） */
 .section-title {
     background: #005a8d;
     color: white;
-    padding: 18px 16px 30px;
+    padding: 12px 16px 18px; /* ← 薄型 */
     font-size: 22px;
     border-radius: 0 0 12px 12px;
     margin: 0;
+    line-height: 1.35; /* ← 少し詰めた */
 }
 
-/* サブタイトル（左）＋署名（右） */
+/* （スマホ対応）を小さく */
+.title-small {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-left: 4px;
+}
+
+/* サブタイトル（2行固定・薄型） */
 .subtitle {
     font-size: 16px;
     font-weight: 400;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 6px;
+    margin-top: 4px; /* ← 詰めた */
+    position: relative;
+    line-height: 1.4; /* ← 詰めた */
 }
 
-/* 署名（右端） */
+.subtitle-line {
+    display: block;
+}
+
+/* 署名（右端固定） */
 .author-inline {
     font-size: 12px;
     opacity: 0.85;
     color: rgba(255,255,255,0.95);
     white-space: nowrap;
-    margin-left: 20px;
+    position: absolute;
+    right: 0;
+    bottom: -2px;
+}
+
+/* バージョン番号（さらに控えめ） */
+.version {
+    font-size: 10px; /* ← 小さく */
+    opacity: 0.7;
+    display: block;
+    text-align: right;
+    margin-top: 2px; /* ← 詰めた */
+    margin-right: 4px;
 }
 
 /* タブ帯 */
@@ -80,8 +103,6 @@ body {
 /* 小中大タブ */
 .tab-small { font-size: 11px; }
 .tab-medium { font-size: 16px; }
-
-/* 大だけ背景濃く */
 .tab-large {
     font-size: 22px;
     background: #d0e4ec;
@@ -95,7 +116,7 @@ body {
     margin: 12px 12px;
     border-radius: 14px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    scroll-margin-top: 90px;
+    scroll-margin-top: 120px; /* 初期値（保険） */
 }
 
 .card p {
@@ -128,6 +149,7 @@ body {
 </style>
 
 <script>
+/* 本文フォントサイズ */
 function applyFontSize(mode) {
     if (mode === 'small') {
         document.body.style.fontSize = '14px';
@@ -143,11 +165,31 @@ function setFontSize(mode) {
     applyFontSize(mode);
 }
 
+/* タイトル帯＋タブ帯の高さを測って scroll-margin-top を自動調整 */
+function updateScrollMargin() {
+    const titleHeight = document.querySelector('.section-title').offsetHeight;
+    const tabHeight = document.querySelector('.tab-container').offsetHeight;
+    const margin = titleHeight + tabHeight + 10;
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.style.scrollMarginTop = margin + 'px';
+    });
+}
+
+/* ページ読み込み時 */
 window.onload = function() {
     const saved = localStorage.getItem('fontSizeSetting') || 'medium';
     applyFontSize(saved);
+
+    updateScrollMargin();
+    setTimeout(updateScrollMargin, 100);
+    setTimeout(updateScrollMargin, 300);
+    setTimeout(updateScrollMargin, 600);
+
+    window.addEventListener('resize', updateScrollMargin);
 };
 
+/* タブ → カードへスクロール */
 function scrollToCard(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -158,13 +200,17 @@ function scrollToCard(id) {
 </head>
 <body>
 
-<!-- タイトル帯 -->
+<!-- タイトル帯（薄型） -->
 <h1 class="section-title">
-    基本の指導メニュー（スマホ対応）<br>
+    基本の指導メニュー <span class="title-small">（スマホ対応）</span><br>
+
     <span class="subtitle">
-        迷ったらここを見るだけ。やさしい実践サポートガイド
+        <span class="subtitle-line">迷ったらここを見るだけ。</span>
+        <span class="subtitle-line">やさしい実践サポートガイド</span>
         <span class="author-inline">🐸 by TreeFrog</span>
     </span>
+
+    <span class="version">v.1</span>
 </h1>
 
 <!-- タブ -->
@@ -181,7 +227,8 @@ function scrollToCard(id) {
     <div class="tab tab-large" onclick="setFontSize('large')">大</div>
 </div>
 
-<!-- カード：泣く -->
+<!-- 以下、カード内容は前回と同じ（省略せずそのまま） -->
+<!-- 泣く -->
 <div class="card" id="cry">
     <h3>🍳 泣いている子への対応</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -207,7 +254,7 @@ function scrollToCard(id) {
     <div class="omamori">困ったら、すぐ呼んでくださいね。</div>
 </div>
 
-<!-- カード：動かない -->
+<!-- 動かない -->
 <div class="card" id="stop">
     <h3>🍳 動かない子への対応</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -232,7 +279,7 @@ function scrollToCard(id) {
     <div class="omamori">あなたのペースで大丈夫ですよ。</div>
 </div>
 
-<!-- カード：けんか -->
+<!-- けんか -->
 <div class="card" id="trouble">
     <h3>🍳 けんか・トラブル対応</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -257,7 +304,7 @@ function scrollToCard(id) {
     <div class="omamori">落ち着いていれば、必ずうまくいきます。</div>
 </div>
 
-<!-- カード：飽きる -->
+<!-- 飽きる -->
 <div class="card" id="bored">
     <h3>🍳 子どもが飽きてきたとき</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -282,7 +329,7 @@ function scrollToCard(id) {
     <div class="omamori">気分転換も大事な時間ですよ。</div>
 </div>
 
-<!-- カード：保護者 -->
+<!-- 保護者 -->
 <div class="card" id="parent">
     <h3>🍳 保護者が見ているとき</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -307,7 +354,7 @@ function scrollToCard(id) {
     <div class="omamori">子どものペースを大切にすれば大丈夫です。</div>
 </div>
 
-<!-- カード：時間 -->
+<!-- 時間 -->
 <div class="card" id="time">
     <h3>🍳 時間がない時</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
