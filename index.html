@@ -95,7 +95,7 @@ body {
     margin: 12px 12px;
     border-radius: 14px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    scroll-margin-top: 90px;
+    scroll-margin-top: 120px; /* 初期値（保険） */
 }
 
 .card p {
@@ -128,6 +128,7 @@ body {
 </style>
 
 <script>
+/* 本文フォントサイズ */
 function applyFontSize(mode) {
     if (mode === 'small') {
         document.body.style.fontSize = '14px';
@@ -143,11 +144,25 @@ function setFontSize(mode) {
     applyFontSize(mode);
 }
 
+/* ページ読み込み時 */
 window.onload = function() {
+    /* フォントサイズ復元 */
     const saved = localStorage.getItem('fontSizeSetting') || 'medium';
     applyFontSize(saved);
+
+    /* タイトル帯とタブ帯の高さを測る */
+    const titleHeight = document.querySelector('.section-title').offsetHeight;
+    const tabHeight = document.querySelector('.tab-container').offsetHeight;
+
+    /* 合計を scroll-margin-top に反映（+10px 余白） */
+    const margin = titleHeight + tabHeight + 10;
+
+    document.querySelectorAll('.card').forEach(card => {
+        card.style.scrollMarginTop = margin + 'px';
+    });
 };
 
+/* タブ → カードへスクロール */
 function scrollToCard(id) {
     const el = document.getElementById(id);
     if (!el) return;
