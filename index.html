@@ -17,17 +17,19 @@ body {
     font-size: 16px;
 }
 
-/* タイトル帯（薄型・透明領域がタブにかぶらないように調整） */
+/* ★ タイトル帯（固定高さで透明領域を完全排除） */
 .section-title {
     background: #005a8d;
     color: white;
-    padding: 12px 16px 8px; /* ← 下の余白を縮めて透明領域をなくす */
+    height: 110px;              /* ← 固定高さ（Safariの誤計算を防ぐ） */
+    padding: 12px 16px 0;       /* ← 下方向の余白を削減 */
     font-size: 22px;
     border-radius: 0 0 12px 12px;
     margin: 0;
     line-height: 1.35;
     position: relative;
-    z-index: 1; /* ← タブより下にする */
+    overflow: hidden;           /* ← 透明領域を完全に切り落とす */
+    z-index: 1;                 /* ← タブより後ろ */
 }
 
 /* （スマホ対応）を小さく */
@@ -71,7 +73,7 @@ body {
     margin-right: 4px;
 }
 
-/* タブ帯（前面に出す） */
+/* ★ タブ帯（常に最前面） */
 .tab-container {
     display: flex;
     justify-content: space-between;
@@ -79,12 +81,12 @@ body {
     background: #ffffff;
     position: sticky;
     top: 0;
-    z-index: 10; /* ← タイトル帯より前面 */
+    z-index: 10;                /* ← タブを最前面に */
     border-bottom: 1px solid #e0e6eb;
     flex-wrap: wrap;
 }
 
-/* タブ（Safari誤作動防止） */
+/* ★ タブ（Safari誤作動防止） */
 .tab {
     padding: 6px 10px;
     background: #e8f1f5;
@@ -97,13 +99,10 @@ body {
     white-space: nowrap;
     font-weight: 700;
 
-    /* ★ Safari の「検索候補 UI」誤作動を防ぐ */
-    user-select: none;
+    user-select: none;          /* ← Safariの検索候補UI防止 */
     -webkit-user-select: none;
-    touch-action: manipulation;
-
-    /* ★ タップ無効化バグを防ぐ */
-    pointer-events: auto;
+    touch-action: manipulation; /* ← タップ誤作動防止 */
+    pointer-events: auto;       /* ← タップ無効化バグ防止 */
 }
 
 .tab:hover {
@@ -179,7 +178,7 @@ function setFontSize(mode) {
 function updateScrollMargin() {
     const tab = document.querySelector('.tab-container');
     const rect = tab.getBoundingClientRect();
-    const margin = rect.bottom + 10;  // ← タブの下端位置を基準にする
+    const margin = rect.bottom + 10;
 
     document.querySelectorAll('.card').forEach(card => {
         card.style.scrollMarginTop = margin + 'px';
@@ -196,10 +195,8 @@ window.onload = function() {
     setTimeout(updateScrollMargin, 300);
     setTimeout(updateScrollMargin, 600);
 
-    /* 画面サイズ変更（PC ↔ スマホ） */
     window.addEventListener('resize', updateScrollMargin);
 
-    /* タブの段数が変わったら自動で再計算 */
     const ro = new ResizeObserver(updateScrollMargin);
     ro.observe(document.querySelector('.tab-container'));
 };
@@ -220,7 +217,7 @@ function scrollToCard(id) {
 </head>
 <body>
 
-<!-- タイトル帯（薄型） -->
+<!-- タイトル帯（固定高さ） -->
 <h1 class="section-title">
     基本の指導メニュー <span class="title-small">（スマホ対応）</span><br>
 
