@@ -3,213 +3,75 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>基本の指導メニュー（スマホ対応）</title>
 
 <style>
-/* 全体 */
 body {
-    font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
-    margin: 0 auto;
-    padding: 0;
-    max-width: 650px;
-    background: #f7f9fa;
-    line-height: 1.7;
-    font-size: 16px;
+    margin: 0;
+    font-family: sans-serif;
 }
 
-/* ★ タイトル帯（固定高さで透明領域を完全排除） */
+/* タイトル帯（透明領域なし・固定高さなし） */
 .section-title {
     background: #005a8d;
     color: white;
-    height: 110px;              /* ← 固定高さ（Safariの誤計算を防ぐ） */
-    padding: 12px 16px 0;       /* ← 下方向の余白を削減 */
-    font-size: 22px;
-    border-radius: 0 0 12px 12px;
+    padding: 12px 16px;
     margin: 0;
-    line-height: 1.35;
-    position: relative;
-    overflow: hidden;           /* ← 透明領域を完全に切り落とす */
-    z-index: 1;                 /* ← タブより後ろ */
-}
-
-/* （スマホ対応）を小さく */
-.title-small {
-    font-size: 14px;
-    opacity: 0.9;
-    margin-left: 4px;
-}
-
-/* サブタイトル（2行固定） */
-.subtitle {
-    font-size: 16px;
-    font-weight: 400;
-    margin-top: 4px;
-    position: relative;
     line-height: 1.4;
+    position: relative;
+    z-index: 1;
 }
 
-.subtitle-line {
-    display: block;
-}
-
-/* 署名（右端固定） */
-.author-inline {
-    font-size: 12px;
-    opacity: 0.85;
-    color: rgba(255,255,255,0.95);
-    white-space: nowrap;
-    position: absolute;
-    right: 0;
-    bottom: -2px;
-}
-
-/* バージョン番号 */
-.version {
-    font-size: 10px;
-    opacity: 0.7;
-    display: block;
-    text-align: right;
-    margin-top: 2px;
-    margin-right: 4px;
-}
-
-/* ★ タブ帯（常に最前面） */
+/* ★ タブ帯（最前面・確実にタップ可能） */
 .tab-container {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 12px;
-    background: #ffffff;
     position: sticky;
     top: 0;
-    z-index: 10;                /* ← タブを最前面に */
-    border-bottom: 1px solid #e0e6eb;
+    background: white;
+    padding: 10px;
+    display: flex;
     flex-wrap: wrap;
+    gap: 6px;
+    z-index: 9999; /* ← 最前面に固定 */
+    border-bottom: 1px solid #ddd;
 }
 
-/* ★ タブ（Safari誤作動防止） */
+/* ★ タブ（タップ不能になる要因をすべて排除） */
 .tab {
-    padding: 6px 10px;
+    padding: 8px 12px;
     background: #e8f1f5;
-    color: #005a8d;
-    border-radius: 12px;
-    font-size: 15px;
-    cursor: pointer;
+    border-radius: 10px;
     border: 1px solid #c9dbe3;
-    margin: 2px;
-    white-space: nowrap;
-    font-weight: 700;
+    cursor: pointer;
+    font-size: 16px;
 
-    user-select: none;          /* ← Safariの検索候補UI防止 */
-    -webkit-user-select: none;
-    touch-action: manipulation; /* ← タップ誤作動防止 */
-    pointer-events: auto;       /* ← タップ無効化バグ防止 */
-}
-
-.tab:hover {
-    background: #dcecf2;
-}
-
-/* 小中大タブ */
-.tab-small { font-size: 11px; }
-.tab-medium { font-size: 16px; }
-.tab-large {
-    font-size: 22px;
-    background: #d0e4ec;
-    border-color: #b5cfd9;
+    /* タップ関連はこれだけで十分 */
+    pointer-events: auto;
+    user-select: none;
 }
 
 /* カード */
 .card {
-    background: #ffffff;
-    padding: 16px;
-    margin: 12px 12px;
-    border-radius: 14px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    scroll-margin-top: 120px;
+    padding: 20px;
+    margin: 20px;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
 }
 
-.card p {
-    line-height: 1.6;
-    margin: 4px 0;
-}
-
-.card h3 {
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
-.indent {
-    margin-left: 14px;
-}
-
-.card strong {
-    display: block;
-    margin-top: 8px;
-    margin-bottom: 4px;
-}
-
-.omamori {
-    margin-top: 14px;
-    padding-top: 10px;
-    border-top: 1px solid #e0e6eb;
-    color: #005a8d;
-    font-size: 17px;
+/* ★ scroll-margin-top はタブ帯の高さだけ */
+.card {
+    scroll-margin-top: 80px;
 }
 </style>
 
 <script>
-/* 本文フォントサイズ */
-function applyFontSize(mode) {
-    if (mode === 'small') {
-        document.body.style.fontSize = '14px';
-    } else if (mode === 'medium') {
-        document.body.style.fontSize = '16px';
-    } else if (mode === 'large') {
-        document.body.style.fontSize = '20px';
-    }
-}
-
-function setFontSize(mode) {
-    localStorage.setItem('fontSizeSetting', mode);
-    applyFontSize(mode);
-}
-
-/* ★ 最強安定版：タブ帯の「画面上の位置」で scroll-margin-top を決める */
-function updateScrollMargin() {
-    const tab = document.querySelector('.tab-container');
-    const rect = tab.getBoundingClientRect();
-    const margin = rect.bottom + 10;
-
-    document.querySelectorAll('.card').forEach(card => {
-        card.style.scrollMarginTop = margin + 'px';
-    });
-}
-
-/* ページ読み込み時 */
-window.onload = function() {
-    const saved = localStorage.getItem('fontSizeSetting') || 'medium';
-    applyFontSize(saved);
-
-    updateScrollMargin();
-    setTimeout(updateScrollMargin, 100);
-    setTimeout(updateScrollMargin, 300);
-    setTimeout(updateScrollMargin, 600);
-
-    window.addEventListener('resize', updateScrollMargin);
-
-    const ro = new ResizeObserver(updateScrollMargin);
-    ro.observe(document.querySelector('.tab-container'));
-};
-
-/* ★ Safari の透明レイヤー問題を避ける scrollIntoView */
+/* ★ 最小で安定する scrollIntoView */
 function scrollToCard(id) {
     const el = document.getElementById(id);
     if (!el) return;
 
     el.scrollIntoView({
         behavior: "smooth",
-        block: "nearest",
-        inline: "nearest"
+        block: "start"
     });
 }
 </script>
@@ -217,60 +79,28 @@ function scrollToCard(id) {
 </head>
 <body>
 
-<!-- タイトル帯（固定高さ） -->
-<h1 class="section-title">
-    基本の指導メニュー <span class="title-small">（スマホ対応）</span><br>
+<h1 class="section-title">基本の指導メニュー</h1>
 
-    <span class="subtitle">
-        <span class="subtitle-line">迷ったらここを見るだけ。</span>
-        <span class="subtitle-line">やさしい実践サポートガイド</span>
-        <span class="author-inline">🐸 by TreeFrog</span>
-    </span>
-
-    <span class="version">v.1</span>
-</h1>
-
-<!-- タブ -->
 <div class="tab-container">
     <div class="tab" onclick="scrollToCard('cry')">泣く</div>
     <div class="tab" onclick="scrollToCard('stop')">動かない</div>
     <div class="tab" onclick="scrollToCard('trouble')">けんか</div>
-    <div class="tab" onclick="scrollToCard('bored')">飽きる</div>
-    <div class="tab" onclick="scrollToCard('parent')">保護者</div>
-    <div class="tab" onclick="scrollToCard('time')">時間</div>
-
-    <div class="tab tab-small" onclick="setFontSize('small')">小</div>
-    <div class="tab tab-medium" onclick="setFontSize('medium')">中</div>
-    <div class="tab tab-large" onclick="setFontSize('large')">大</div>
 </div>
 
-<!-- 以下、カード内容（省略せずそのまま） -->
 <div class="card" id="cry">
-    <h3>🍳 泣いている子への対応</h3>
-    <p><strong>🧂 まずは準備すること</strong></p>
-    <div class="indent">
-        <p>・ゆっくりした声</p>
-        <p>・しゃがんで目線を合わせる姿勢</p>
-        <p>・まずは安心させる気持ち</p>
-    </div>
-    <p><strong>🔥 手順</strong></p>
-    <div class="indent">
-        <p>1. 深呼吸して、落ち着いた声で名前を呼ぶ</p>
-        <p>2. しゃがんで目線を合わせる</p>
-        <p>3. 「大丈夫だよ」と短く安心させる</p>
-        <p>4. 落ち着いたら、何があったか一言だけ聞く</p>
-        <p>5. 小さな成功体験（できること）を一緒に作る</p>
-    </div>
-    <p><strong>💡 コツ</strong></p>
-    <div class="indent">
-        <p>・理由を長く聞かない</p>
-        <p>・泣き止ませることが目的ではなく“安心”が目的</p>
-        <p>・できたことを必ず褒める</p>
-    </div>
-    <div class="omamori">困ったら、すぐ呼んでくださいね。</div>
+    <h2>泣く</h2>
+    <p>テスト用のカードです。</p>
 </div>
 
-<!-- 他のカードも同様に続く（省略） -->
+<div class="card" id="stop">
+    <h2>動かない</h2>
+    <p>テスト用のカードです。</p>
+</div>
+
+<div class="card" id="trouble">
+    <h2>けんか</h2>
+    <p>テスト用のカードです。</p>
+</div>
 
 </body>
 </html>
