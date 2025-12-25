@@ -21,11 +21,11 @@ body {
 .section-title {
     background: #005a8d;
     color: white;
-    padding: 12px 16px 18px; /* ← 薄型 */
+    padding: 12px 16px 18px;
     font-size: 22px;
     border-radius: 0 0 12px 12px;
     margin: 0;
-    line-height: 1.35; /* ← 少し詰めた */
+    line-height: 1.35;
 }
 
 /* （スマホ対応）を小さく */
@@ -39,9 +39,9 @@ body {
 .subtitle {
     font-size: 16px;
     font-weight: 400;
-    margin-top: 4px; /* ← 詰めた */
+    margin-top: 4px;
     position: relative;
-    line-height: 1.4; /* ← 詰めた */
+    line-height: 1.4;
 }
 
 .subtitle-line {
@@ -59,13 +59,13 @@ body {
     bottom: -2px;
 }
 
-/* バージョン番号（さらに控えめ） */
+/* バージョン番号（控えめ） */
 .version {
-    font-size: 10px; /* ← 小さく */
+    font-size: 10px;
     opacity: 0.7;
     display: block;
     text-align: right;
-    margin-top: 2px; /* ← 詰めた */
+    margin-top: 2px;
     margin-right: 4px;
 }
 
@@ -116,7 +116,7 @@ body {
     margin: 12px 12px;
     border-radius: 14px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    scroll-margin-top: 120px; /* 初期値（保険） */
+    scroll-margin-top: 120px;
 }
 
 .card p {
@@ -186,7 +186,12 @@ window.onload = function() {
     setTimeout(updateScrollMargin, 300);
     setTimeout(updateScrollMargin, 600);
 
+    /* 画面サイズ変更（PC ↔ スマホ） */
     window.addEventListener('resize', updateScrollMargin);
+
+    /* ★ タブの段数が変わったら自動で再計算（PCとスマホのズレを完全解消） */
+    const ro = new ResizeObserver(updateScrollMargin);
+    ro.observe(document.querySelector('.tab-container'));
 };
 
 /* タブ → カードへスクロール */
@@ -227,7 +232,7 @@ function scrollToCard(id) {
     <div class="tab tab-large" onclick="setFontSize('large')">大</div>
 </div>
 
-<!-- 以下、カード内容は前回と同じ（省略せずそのまま） -->
+<!-- 以下、カード内容はそのまま -->
 <!-- 泣く -->
 <div class="card" id="cry">
     <h3>🍳 泣いている子への対応</h3>
