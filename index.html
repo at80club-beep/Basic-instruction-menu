@@ -165,11 +165,10 @@ function setFontSize(mode) {
     applyFontSize(mode);
 }
 
-/* タイトル帯＋タブ帯の高さを測って scroll-margin-top を自動調整 */
+/* ★ タブ帯の高さだけで scroll-margin-top を決める（正しい方式） */
 function updateScrollMargin() {
-    const titleHeight = document.querySelector('.section-title').offsetHeight;
     const tabHeight = document.querySelector('.tab-container').offsetHeight;
-    const margin = titleHeight + tabHeight + 10;
+    const margin = tabHeight + 10;
 
     document.querySelectorAll('.card').forEach(card => {
         card.style.scrollMarginTop = margin + 'px';
@@ -189,7 +188,7 @@ window.onload = function() {
     /* 画面サイズ変更（PC ↔ スマホ） */
     window.addEventListener('resize', updateScrollMargin);
 
-    /* ★ タブの段数が変わったら自動で再計算（PCとスマホのズレを完全解消） */
+    /* タブの段数が変わったら自動で再計算 */
     const ro = new ResizeObserver(updateScrollMargin);
     ro.observe(document.querySelector('.tab-container'));
 };
@@ -233,7 +232,6 @@ function scrollToCard(id) {
 </div>
 
 <!-- 以下、カード内容はそのまま -->
-<!-- 泣く -->
 <div class="card" id="cry">
     <h3>🍳 泣いている子への対応</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -259,7 +257,7 @@ function scrollToCard(id) {
     <div class="omamori">困ったら、すぐ呼んでくださいね。</div>
 </div>
 
-<!-- 動かない -->
+<!-- 他のカードも同様（省略せずそのまま） -->
 <div class="card" id="stop">
     <h3>🍳 動かない子への対応</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -284,7 +282,6 @@ function scrollToCard(id) {
     <div class="omamori">あなたのペースで大丈夫ですよ。</div>
 </div>
 
-<!-- けんか -->
 <div class="card" id="trouble">
     <h3>🍳 けんか・トラブル対応</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -309,7 +306,6 @@ function scrollToCard(id) {
     <div class="omamori">落ち着いていれば、必ずうまくいきます。</div>
 </div>
 
-<!-- 飽きる -->
 <div class="card" id="bored">
     <h3>🍳 子どもが飽きてきたとき</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -334,7 +330,6 @@ function scrollToCard(id) {
     <div class="omamori">気分転換も大事な時間ですよ。</div>
 </div>
 
-<!-- 保護者 -->
 <div class="card" id="parent">
     <h3>🍳 保護者が見ているとき</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
@@ -359,7 +354,6 @@ function scrollToCard(id) {
     <div class="omamori">子どものペースを大切にすれば大丈夫です。</div>
 </div>
 
-<!-- 時間 -->
 <div class="card" id="time">
     <h3>🍳 時間がない時</h3>
     <p><strong>🧂 まずは準備すること</strong></p>
