@@ -105,9 +105,9 @@ body {
     line-height: 1.5;
 }
 
-/* ★ 文字サイズ「中」のときだけ行間をさらに詰める */
+/* ★ 文字サイズ「中」のときだけ行間をかなり詰める（1.15） */
 body.medium-size .card p {
-    line-height: 1.35;
+    line-height: 1.15;
 }
 
 .indent {
@@ -134,7 +134,7 @@ function applyFontSize(mode) {
     }
     if (mode === 'medium') {
         document.body.style.fontSize = '16px';   // 基準
-        document.body.classList.add("medium-size");  // ← 行間1.35が適用される
+        document.body.classList.add("medium-size");  // ← 行間1.15が適用される
     }
     if (mode === 'large') {
         document.body.style.fontSize = '26px';   // 黄金比の大
