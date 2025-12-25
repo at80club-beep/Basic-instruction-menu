@@ -80,6 +80,11 @@ body {
     font-weight: 800; /* ← 太字 */
 }
 
+/* 小・中・大タブの黄金比サイズ */
+.tab-small { font-size: 11px; }
+.tab-medium { font-size: 15px; }
+.tab-large { font-size: 24px; }
+
 /* カード */
 .card {
     background: white;
@@ -165,10 +170,10 @@ window.onload = () => {
     <div class="tab" onclick="scrollToCard('parent')">保護者</div>
     <div class="tab" onclick="scrollToCard('time')">時間</div>
 
-    <!-- フォントサイズ切り替え -->
-    <div class="tab" onclick="setFontSize('small')">小</div>
-    <div class="tab" onclick="setFontSize('medium')">中</div>
-    <div class="tab" onclick="setFontSize('large')">大</div>
+    <!-- フォントサイズ切り替え（黄金比） -->
+    <div class="tab tab-small" onclick="setFontSize('small')">小</div>
+    <div class="tab tab-medium" onclick="setFontSize('medium')">中</div>
+    <div class="tab tab-large" onclick="setFontSize('large')">大</div>
 </div>
 
 <!-- ★ カード：泣く -->
