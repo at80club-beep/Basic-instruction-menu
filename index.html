@@ -100,9 +100,14 @@ body {
     margin-top: 0;
 }
 
-/* 行間を詰めてスマホに収まりやすく */
+/* 行間を詰めてスマホに収まりやすく（基本） */
 .card p {
     line-height: 1.5;
+}
+
+/* ★ 文字サイズ「中」のときだけ行間をさらに詰める */
+body.medium-size .card p {
+    line-height: 1.35;
 }
 
 .indent {
@@ -121,9 +126,20 @@ body {
 <script>
 /* ★ 黄金比フォントサイズ切り替え */
 function applyFontSize(mode) {
-    if (mode === 'small') document.body.style.fontSize = '12px';   // 黄金比の小
-    if (mode === 'medium') document.body.style.fontSize = '16px';  // 基準
-    if (mode === 'large') document.body.style.fontSize = '26px';   // 黄金比の大
+    document.body.classList.remove("small-size", "medium-size", "large-size");
+
+    if (mode === 'small') {
+        document.body.style.fontSize = '12px';   // 黄金比の小
+        document.body.classList.add("small-size");
+    }
+    if (mode === 'medium') {
+        document.body.style.fontSize = '16px';   // 基準
+        document.body.classList.add("medium-size");  // ← 行間1.35が適用される
+    }
+    if (mode === 'large') {
+        document.body.style.fontSize = '26px';   // 黄金比の大
+        document.body.classList.add("large-size");
+    }
 }
 
 function setFontSize(mode) {
