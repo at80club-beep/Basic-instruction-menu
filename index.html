@@ -14,39 +14,42 @@ body {
     line-height: 1.7;
 }
 
-/* タイトル帯 */
+/* ★ タイトル帯（1行＋右寄せ署名） */
 .section-title {
     background: #005a8d;
     color: white;
     padding: 14px 16px;
     margin: 0;
-    line-height: 1.4;
     font-size: 22px;
+    line-height: 1.3;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    white-space: nowrap;
     border-radius: 0 0 12px 12px;
 }
 
-/* サブタイトル */
-.subtitle {
-    font-size: 16px;
-    margin-top: 4px;
-    line-height: 1.4;
+/* 左側タイトル */
+.title-left {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
-/* 署名 */
-.author-inline {
+/* （スマホ対応）を極小に */
+.title-small {
     font-size: 12px;
     opacity: 0.9;
 }
 
-/* バージョン */
-.version {
-    font-size: 10px;
-    opacity: 0.7;
-    text-align: right;
-    margin-top: 4px;
+/* 右側署名 */
+.title-right {
+    font-size: 12px;
+    opacity: 0.9;
 }
 
-/* ★ 横スクロールタブ（Android Chrome で最も安定） */
+/* ★ 横スクロールタブ（Android Chromeで最安定） */
 .tab-container {
     position: sticky;
     top: 0;
@@ -104,6 +107,18 @@ body {
 </style>
 
 <script>
+/* フォントサイズ切り替え */
+function applyFontSize(mode) {
+    if (mode === 'small') document.body.style.fontSize = '14px';
+    if (mode === 'medium') document.body.style.fontSize = '16px';
+    if (mode === 'large') document.body.style.fontSize = '20px';
+}
+
+function setFontSize(mode) {
+    localStorage.setItem('fontSizeSetting', mode);
+    applyFontSize(mode);
+}
+
 /* スクロール */
 function scrollToCard(id) {
     const el = document.getElementById(id);
@@ -114,20 +129,24 @@ function scrollToCard(id) {
         block: "start"
     });
 }
+
+window.onload = () => {
+    const saved = localStorage.getItem('fontSizeSetting') || 'medium';
+    applyFontSize(saved);
+};
 </script>
 
 </head>
 <body>
 
-<!-- タイトル帯 -->
+<!-- ★ タイトル帯（1行＋右寄せ署名） -->
 <h1 class="section-title">
-    基本の指導メニュー（スマホ対応）
-    <div class="subtitle">
-        迷ったらここを見るだけ。<br>
-        やさしい実践サポートガイド
-        <span class="author-inline">🐸 by TreeFrog</span>
-    </div>
-    <div class="version">v.1</div>
+    <span class="title-left">
+        基本の指導メニュー
+        <span class="title-small">（スマホ対応）</span>
+    </span>
+
+    <span class="title-right">🐸by TreeFrog</span>
 </h1>
 
 <!-- ★ 横スクロールタブ -->
@@ -138,9 +157,14 @@ function scrollToCard(id) {
     <div class="tab" onclick="scrollToCard('bored')">飽きる</div>
     <div class="tab" onclick="scrollToCard('parent')">保護者</div>
     <div class="tab" onclick="scrollToCard('time')">時間</div>
+
+    <!-- フォントサイズ切り替え -->
+    <div class="tab" onclick="setFontSize('small')">小</div>
+    <div class="tab" onclick="setFontSize('medium')">中</div>
+    <div class="tab" onclick="setFontSize('large')">大</div>
 </div>
 
-<!-- カード：泣く -->
+<!-- ★ カード：泣く -->
 <div class="card" id="cry">
     <h3>🍳 泣いている子への対応</h3>
 
@@ -170,7 +194,7 @@ function scrollToCard(id) {
     <div class="omamori">困ったら、すぐ呼んでくださいね。</div>
 </div>
 
-<!-- カード：動かない -->
+<!-- ★ カード：動かない -->
 <div class="card" id="stop">
     <h3>🍳 動かない子への対応</h3>
 
@@ -199,7 +223,7 @@ function scrollToCard(id) {
     <div class="omamori">あなたのペースで大丈夫ですよ。</div>
 </div>
 
-<!-- カード：けんか -->
+<!-- ★ カード：けんか -->
 <div class="card" id="trouble">
     <h3>🍳 けんか・トラブル対応</h3>
 
@@ -228,7 +252,7 @@ function scrollToCard(id) {
     <div class="omamori">落ち着いていれば、必ずうまくいきます。</div>
 </div>
 
-<!-- カード：飽きる -->
+<!-- ★ カード：飽きる -->
 <div class="card" id="bored">
     <h3>🍳 子どもが飽きてきたとき</h3>
 
@@ -257,7 +281,7 @@ function scrollToCard(id) {
     <div class="omamori">気分転換も大事な時間ですよ。</div>
 </div>
 
-<!-- カード：保護者 -->
+<!-- ★ カード：保護者 -->
 <div class="card" id="parent">
     <h3>🍳 保護者が見ているとき</h3>
 
@@ -286,7 +310,7 @@ function scrollToCard(id) {
     <div class="omamori">子どものペースを大切にすれば大丈夫です。</div>
 </div>
 
-<!-- カード：時間 -->
+<!-- ★ カード：時間 -->
 <div class="card" id="time">
     <h3>🍳 時間がない時</h3>
 
