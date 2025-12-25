@@ -3,115 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>基本の指導メニュー（スマホ対応）</title>
 
 <style>
+/* 全体 */
 body {
-    margin: 0;
     font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
+    margin: 0 auto;
+    padding: 0;
+    max-width: 650px;
     background: #f7f9fa;
     line-height: 1.7;
+    font-size: 16px;
 }
 
-/* ★ タイトル帯（1行＋右寄せ署名） */
+/* タイトル帯 */
 .section-title {
     background: #005a8d;
     color: white;
-    padding: 14px 16px;
-    margin: 0;
+    padding: 18px 16px 30px;
     font-size: 22px;
-    line-height: 1.3;
+    border-radius: 0 0 12px 12px;
+    margin: 0;
+}
 
+/* サブタイトル（左）＋署名（右） */
+.subtitle {
+    font-size: 16px;
+    font-weight: 400;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 6px;
+}
+
+/* 署名（右端） */
+.author-inline {
+    font-size: 12px;
+    opacity: 0.85;
+    color: rgba(255,255,255,0.95);
     white-space: nowrap;
-    border-radius: 0 0 12px 12px;
+    margin-left: 20px;
 }
 
-/* 左側タイトル */
-.title-left {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-/* （スマホ対応）を極小に */
-.title-small {
-    font-size: 12px;
-    opacity: 0.9;
-}
-
-/* 右側署名 */
-.title-right {
-    font-size: 12px;
-    opacity: 0.9;
-}
-
-/* ★ 横スクロールタブ（Android Chromeで最安定） */
+/* タブ帯 */
 .tab-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #ffffff;
     position: sticky;
     top: 0;
-    background: white;
-    padding: 10px 8px;
-    display: flex;
-    gap: 8px;
-
-    overflow-x: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-
-    border-bottom: 1px solid #ddd;
-    z-index: 9999;
+    z-index: 100;
+    border-bottom: 1px solid #e0e6eb;
+    flex-wrap: wrap;
 }
 
-/* タブ（太字） */
+/* タブ */
 .tab {
-    padding: 8px 14px;
+    padding: 6px 10px;
     background: #e8f1f5;
+    color: #005a8d;
     border-radius: 12px;
-    border: 1px solid #c9dbe3;
     font-size: 15px;
     cursor: pointer;
-    user-select: none;
-    pointer-events: auto;
-
-    font-weight: 800; /* ← 太字 */
+    border: 1px solid #c9dbe3;
+    margin: 2px;
+    white-space: nowrap;
+    font-weight: 700;
 }
 
-/* 小・中・大タブの黄金比サイズ */
+.tab:hover {
+    background: #dcecf2;
+}
+
+/* 小中大タブ */
 .tab-small { font-size: 11px; }
-.tab-medium { font-size: 15px; }
-.tab-large { font-size: 24px; }
+.tab-medium { font-size: 16px; }
+
+/* 大だけ背景濃く */
+.tab-large {
+    font-size: 22px;
+    background: #d0e4ec;
+    border-color: #b5cfd9;
+}
 
 /* カード */
 .card {
-    background: white;
-    margin: 16px;
+    background: #ffffff;
     padding: 16px;
-    border-radius: 12px;
-    border: 1px solid #ddd;
+    margin: 12px 12px;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    scroll-margin-top: 90px;
+}
 
-    scroll-margin-top: 80px;
+.card p {
+    line-height: 1.6;
+    margin: 4px 0;
 }
 
 .card h3 {
     margin-top: 0;
-}
-
-/* 行間を詰めてスマホに収まりやすく（基本） */
-.card p {
-    line-height: 1.5;
-}
-
-/* ★ 文字サイズ「中」のときだけ行間をかなり詰める（1.15） */
-body.medium-size .card p {
-    line-height: 1.15;
+    margin-bottom: 8px;
 }
 
 .indent {
     margin-left: 14px;
+}
+
+.card strong {
+    display: block;
+    margin-top: 8px;
+    margin-bottom: 4px;
 }
 
 .omamori {
@@ -124,21 +128,13 @@ body.medium-size .card p {
 </style>
 
 <script>
-/* ★ 黄金比フォントサイズ切り替え */
 function applyFontSize(mode) {
-    document.body.classList.remove("small-size", "medium-size", "large-size");
-
     if (mode === 'small') {
-        document.body.style.fontSize = '12px';   // 黄金比の小
-        document.body.classList.add("small-size");
-    }
-    if (mode === 'medium') {
-        document.body.style.fontSize = '16px';   // 基準
-        document.body.classList.add("medium-size");  // ← 行間1.15が適用される
-    }
-    if (mode === 'large') {
-        document.body.style.fontSize = '26px';   // 黄金比の大
-        document.body.classList.add("large-size");
+        document.body.style.fontSize = '14px';
+    } else if (mode === 'medium') {
+        document.body.style.fontSize = '16px';
+    } else if (mode === 'large') {
+        document.body.style.fontSize = '20px';
     }
 }
 
@@ -147,37 +143,31 @@ function setFontSize(mode) {
     applyFontSize(mode);
 }
 
-/* スクロール */
-function scrollToCard(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-
-    el.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-}
-
-window.onload = () => {
+window.onload = function() {
     const saved = localStorage.getItem('fontSizeSetting') || 'medium';
     applyFontSize(saved);
 };
+
+function scrollToCard(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 </script>
 
 </head>
 <body>
 
-<!-- ★ タイトル帯（1行＋右寄せ署名） -->
+<!-- タイトル帯 -->
 <h1 class="section-title">
-    <span class="title-left">
-        基本の指導メニュー
-        <span class="title-small">（スマホ対応）</span>
+    基本の指導メニュー（スマホ対応）<br>
+    <span class="subtitle">
+        迷ったらここを見るだけ。やさしい実践サポートガイド
+        <span class="author-inline">🐸 by TreeFrog</span>
     </span>
-
-    <span class="title-right">🐸by TreeFrog</span>
 </h1>
 
-<!-- ★ 横スクロールタブ -->
+<!-- タブ -->
 <div class="tab-container">
     <div class="tab" onclick="scrollToCard('cry')">泣く</div>
     <div class="tab" onclick="scrollToCard('stop')">動かない</div>
@@ -186,24 +176,21 @@ window.onload = () => {
     <div class="tab" onclick="scrollToCard('parent')">保護者</div>
     <div class="tab" onclick="scrollToCard('time')">時間</div>
 
-    <!-- フォントサイズ切り替え（黄金比） -->
     <div class="tab tab-small" onclick="setFontSize('small')">小</div>
     <div class="tab tab-medium" onclick="setFontSize('medium')">中</div>
     <div class="tab tab-large" onclick="setFontSize('large')">大</div>
 </div>
 
-<!-- ★ カード：泣く -->
+<!-- カード：泣く -->
 <div class="card" id="cry">
     <h3>🍳 泣いている子への対応</h3>
-
-    <strong>🧂 まずは準備すること</strong>
+    <p><strong>🧂 まずは準備すること</strong></p>
     <div class="indent">
         <p>・ゆっくりした声</p>
         <p>・しゃがんで目線を合わせる姿勢</p>
         <p>・まずは安心させる気持ち</p>
     </div>
-
-    <strong>🔥 手順</strong>
+    <p><strong>🔥 手順</strong></p>
     <div class="indent">
         <p>1. 深呼吸して、落ち着いた声で名前を呼ぶ</p>
         <p>2. しゃがんで目線を合わせる</p>
@@ -211,159 +198,137 @@ window.onload = () => {
         <p>4. 落ち着いたら、何があったか一言だけ聞く</p>
         <p>5. 小さな成功体験（できること）を一緒に作る</p>
     </div>
-
-    <strong>💡 コツ</strong>
+    <p><strong>💡 コツ</strong></p>
     <div class="indent">
         <p>・理由を長く聞かない</p>
         <p>・泣き止ませることが目的ではなく“安心”が目的</p>
         <p>・できたことを必ず褒める</p>
     </div>
-
     <div class="omamori">困ったら、すぐ呼んでくださいね。</div>
 </div>
 
-<!-- ★ カード：動かない -->
+<!-- カード：動かない -->
 <div class="card" id="stop">
     <h3>🍳 動かない子への対応</h3>
-
-    <strong>🧂 まずは準備すること</strong>
+    <p><strong>🧂 まずは準備すること</strong></p>
     <div class="indent">
         <p>・待つ余裕</p>
         <p>・小さな成功体験を作る気持ち</p>
         <p>・焦らせない姿勢</p>
     </div>
-
-    <strong>🔥 手順</strong>
+    <p><strong>🔥 手順</strong></p>
     <div class="indent">
         <p>1. 無理に動かそうとせず、まずは近くに寄る</p>
         <p>2. 「ここだけ一緒にやってみよう」と小さな一歩を提案</p>
         <p>3. できたらすぐに褒める</p>
         <p>4. 次の一歩を一緒に決める</p>
     </div>
-
-    <strong>💡 コツ</strong>
+    <p><strong>💡 コツ</strong></p>
     <div class="indent">
         <p>・「なんでできないの？」は絶対に言わない</p>
         <p>・成功体験は“とても小さくていい”</p>
         <p>・周りと比べない</p>
     </div>
-
     <div class="omamori">あなたのペースで大丈夫ですよ。</div>
 </div>
 
-<!-- ★ カード：けんか -->
+<!-- カード：けんか -->
 <div class="card" id="trouble">
     <h3>🍳 けんか・トラブル対応</h3>
-
-    <strong>🧂 まずは準備すること</strong>
+    <p><strong>🧂 まずは準備すること</strong></p>
     <div class="indent">
         <p>・落ち着いた声</p>
         <p>・事実を確認する姿勢</p>
         <p>・子どもを責めない気持ち</p>
     </div>
-
-    <strong>🔥 手順</strong>
+    <p><strong>🔥 手順</strong></p>
     <div class="indent">
         <p>1. まずは双方を落ち着かせる</p>
         <p>2. 事実だけを短く確認する</p>
         <p>3. どちらも否定せず、気持ちを言葉にしてあげる</p>
         <p>4. 次にどうするかを一緒に決める</p>
     </div>
-
-    <strong>💡 コツ</strong>
+    <p><strong>💡 コツ</strong></p>
     <div class="indent">
         <p>・片方だけを信じない</p>
         <p>・感情ではなく“事実”を扱う</p>
         <p>・すぐに解決しなくてもOK</p>
     </div>
-
     <div class="omamori">落ち着いていれば、必ずうまくいきます。</div>
 </div>
 
-<!-- ★ カード：飽きる -->
+<!-- カード：飽きる -->
 <div class="card" id="bored">
     <h3>🍳 子どもが飽きてきたとき</h3>
-
-    <strong>🧂 まずは準備すること</strong>
+    <p><strong>🧂 まずは準備すること</strong></p>
     <div class="indent">
         <p>・明るい声</p>
         <p>・小さな変化を作る気持ち</p>
         <p>・無理に引き戻さない姿勢</p>
     </div>
-
-    <strong>🔥 手順</strong>
+    <p><strong>🔥 手順</strong></p>
     <div class="indent">
         <p>1. 「ちょっとだけ変えてみようか」と声をかける</p>
         <p>2. 道具・場所・役割などを少し変える</p>
         <p>3. できたらすぐに褒める</p>
         <p>4. それでも難しければ、短い休憩を提案</p>
     </div>
-
-    <strong>💡 コツ</strong>
+    <p><strong>💡 コツ</strong></p>
     <div class="indent">
         <p>・飽きるのは悪いことではない</p>
         <p>・変化は“ほんの少し”で十分</p>
         <p>・無理に戻そうとすると逆効果</p>
     </div>
-
     <div class="omamori">気分転換も大事な時間ですよ。</div>
 </div>
 
-<!-- ★ カード：保護者 -->
+<!-- カード：保護者 -->
 <div class="card" id="parent">
     <h3>🍳 保護者が見ているとき</h3>
-
-    <strong>🧂 まずは準備すること</strong>
+    <p><strong>🧂 まずは準備すること</strong></p>
     <div class="indent">
         <p>・落ち着いた声</p>
         <p>・子どもを主役にする姿勢</p>
         <p>・保護者への安心感</p>
     </div>
-
-    <strong>🔥 手順</strong>
+    <p><strong>🔥 手順</strong></p>
     <div class="indent">
         <p>1. 子どもに向けて説明する（保護者ではなく）</p>
         <p>2. 子どものできた部分を必ず言葉にする</p>
         <p>3. 保護者には短く「大丈夫ですよ」と伝える</p>
         <p>4. 子どもが自分でできた瞬間を一緒に喜ぶ</p>
     </div>
-
-    <strong>💡 コツ</strong>
+    <p><strong>💡 コツ</strong></p>
     <div class="indent">
         <p>・保護者の視線を気にしすぎない</p>
         <p>・子どもを褒めると保護者も安心する</p>
         <p>・説明は短く、行動はゆっくり</p>
     </div>
-
     <div class="omamori">子どものペースを大切にすれば大丈夫です。</div>
 </div>
 
-<!-- ★ カード：時間 -->
+<!-- カード：時間 -->
 <div class="card" id="time">
     <h3>🍳 時間がない時</h3>
-
-    <strong>🧂 まずは準備すること</strong>
+    <p><strong>🧂 まずは準備すること</strong></p>
     <div class="indent">
         <p>・優先順位を決める気持ち</p>
         <p>・焦らない姿勢</p>
         <p>・子どもを急かさない心</p>
     </div>
-
-    <strong>🔥 手順</strong>
+    <p><strong>🔥 手順</strong></p>
     <div class="indent">
         <p>1. まず深呼吸して落ち着く</p>
         <p>2. 「絶対に必要な工程」だけを選ぶ</p>
         <p>3. 子どもには「ここだけ一緒にやろう」と伝える</p>
         <p>4. 終わったら必ず褒める</p>
     </div>
-
-    <strong>💡 コツ</strong>
+    <p><strong>💡 コツ</strong></p>
     <div class="indent">
         <p>・焦ると子どもは動かなくなる</p>
         <p>・“削る工程”を決めておくと安心</p>
         <p>・完成よりも“体験”を優先する</p>
     </div>
-
     <div class="omamori">焦らなくても、ちゃんと進みますよ。</div>
 </div>
 
