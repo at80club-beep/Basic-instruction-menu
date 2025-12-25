@@ -4,14 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<title>基本の指導メニュー（スマホ対応）</title>
+
 <style>
 body {
     margin: 0;
     font-family: "Hiragino Sans", "Noto Sans JP", sans-serif;
     background: #f7f9fa;
+    line-height: 1.7;
 }
 
-/* タイトル帯（薄型） */
+/* タイトル帯 */
 .section-title {
     background: #005a8d;
     color: white;
@@ -19,6 +22,28 @@ body {
     margin: 0;
     line-height: 1.4;
     font-size: 22px;
+    border-radius: 0 0 12px 12px;
+}
+
+/* サブタイトル */
+.subtitle {
+    font-size: 16px;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* 署名 */
+.author-inline {
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+/* バージョン */
+.version {
+    font-size: 10px;
+    opacity: 0.7;
+    text-align: right;
+    margin-top: 4px;
 }
 
 /* ★ 横スクロールタブ（Android Chrome で最も安定） */
@@ -30,15 +55,15 @@ body {
     display: flex;
     gap: 8px;
 
-    overflow-x: auto;      /* ← 横スクロール */
-    white-space: nowrap;   /* ← 2段にしない */
+    overflow-x: auto;
+    white-space: nowrap;
     -webkit-overflow-scrolling: touch;
 
     border-bottom: 1px solid #ddd;
-    z-index: 9999;         /* ← 最前面 */
+    z-index: 9999;
 }
 
-/* タブ（タップ不能バグを完全回避） */
+/* タブ */
 .tab {
     padding: 8px 14px;
     background: #e8f1f5;
@@ -58,13 +83,28 @@ body {
     border-radius: 12px;
     border: 1px solid #ddd;
 
-    /* タブ帯の高さに合わせて固定 */
-    scroll-margin-top: 70px;
+    scroll-margin-top: 80px;
+}
+
+.card h3 {
+    margin-top: 0;
+}
+
+.indent {
+    margin-left: 14px;
+}
+
+.omamori {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e6eb;
+    color: #005a8d;
+    font-size: 17px;
 }
 </style>
 
 <script>
-/* ★ Android Chrome で最も安定する scrollIntoView */
+/* スクロール */
 function scrollToCard(id) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -79,7 +119,16 @@ function scrollToCard(id) {
 </head>
 <body>
 
-<h1 class="section-title">基本の指導メニュー（スマホ対応）</h1>
+<!-- タイトル帯 -->
+<h1 class="section-title">
+    基本の指導メニュー（スマホ対応）
+    <div class="subtitle">
+        迷ったらここを見るだけ。<br>
+        やさしい実践サポートガイド
+        <span class="author-inline">🐸 by TreeFrog</span>
+    </div>
+    <div class="version">v.1</div>
+</h1>
 
 <!-- ★ 横スクロールタブ -->
 <div class="tab-container">
@@ -89,41 +138,181 @@ function scrollToCard(id) {
     <div class="tab" onclick="scrollToCard('bored')">飽きる</div>
     <div class="tab" onclick="scrollToCard('parent')">保護者</div>
     <div class="tab" onclick="scrollToCard('time')">時間</div>
-
-    <div class="tab" onclick="scrollToCard('small')">小</div>
-    <div class="tab" onclick="scrollToCard('medium')">中</div>
-    <div class="tab" onclick="scrollToCard('large')">大</div>
 </div>
 
-<!-- カード -->
+<!-- カード：泣く -->
 <div class="card" id="cry">
-    <h2>泣く</h2>
-    <p>テスト用のカードです。</p>
+    <h3>🍳 泣いている子への対応</h3>
+
+    <strong>🧂 まずは準備すること</strong>
+    <div class="indent">
+        <p>・ゆっくりした声</p>
+        <p>・しゃがんで目線を合わせる姿勢</p>
+        <p>・まずは安心させる気持ち</p>
+    </div>
+
+    <strong>🔥 手順</strong>
+    <div class="indent">
+        <p>1. 深呼吸して、落ち着いた声で名前を呼ぶ</p>
+        <p>2. しゃがんで目線を合わせる</p>
+        <p>3. 「大丈夫だよ」と短く安心させる</p>
+        <p>4. 落ち着いたら、何があったか一言だけ聞く</p>
+        <p>5. 小さな成功体験（できること）を一緒に作る</p>
+    </div>
+
+    <strong>💡 コツ</strong>
+    <div class="indent">
+        <p>・理由を長く聞かない</p>
+        <p>・泣き止ませることが目的ではなく“安心”が目的</p>
+        <p>・できたことを必ず褒める</p>
+    </div>
+
+    <div class="omamori">困ったら、すぐ呼んでくださいね。</div>
 </div>
 
+<!-- カード：動かない -->
 <div class="card" id="stop">
-    <h2>動かない</h2>
-    <p>テスト用のカードです。</p>
+    <h3>🍳 動かない子への対応</h3>
+
+    <strong>🧂 まずは準備すること</strong>
+    <div class="indent">
+        <p>・待つ余裕</p>
+        <p>・小さな成功体験を作る気持ち</p>
+        <p>・焦らせない姿勢</p>
+    </div>
+
+    <strong>🔥 手順</strong>
+    <div class="indent">
+        <p>1. 無理に動かそうとせず、まずは近くに寄る</p>
+        <p>2. 「ここだけ一緒にやってみよう」と小さな一歩を提案</p>
+        <p>3. できたらすぐに褒める</p>
+        <p>4. 次の一歩を一緒に決める</p>
+    </div>
+
+    <strong>💡 コツ</strong>
+    <div class="indent">
+        <p>・「なんでできないの？」は絶対に言わない</p>
+        <p>・成功体験は“とても小さくていい”</p>
+        <p>・周りと比べない</p>
+    </div>
+
+    <div class="omamori">あなたのペースで大丈夫ですよ。</div>
 </div>
 
+<!-- カード：けんか -->
 <div class="card" id="trouble">
-    <h2>けんか</h2>
-    <p>テスト用のカードです。</p>
+    <h3>🍳 けんか・トラブル対応</h3>
+
+    <strong>🧂 まずは準備すること</strong>
+    <div class="indent">
+        <p>・落ち着いた声</p>
+        <p>・事実を確認する姿勢</p>
+        <p>・子どもを責めない気持ち</p>
+    </div>
+
+    <strong>🔥 手順</strong>
+    <div class="indent">
+        <p>1. まずは双方を落ち着かせる</p>
+        <p>2. 事実だけを短く確認する</p>
+        <p>3. どちらも否定せず、気持ちを言葉にしてあげる</p>
+        <p>4. 次にどうするかを一緒に決める</p>
+    </div>
+
+    <strong>💡 コツ</strong>
+    <div class="indent">
+        <p>・片方だけを信じない</p>
+        <p>・感情ではなく“事実”を扱う</p>
+        <p>・すぐに解決しなくてもOK</p>
+    </div>
+
+    <div class="omamori">落ち着いていれば、必ずうまくいきます。</div>
 </div>
 
+<!-- カード：飽きる -->
 <div class="card" id="bored">
-    <h2>飽きる</h2>
-    <p>テスト用のカードです。</p>
+    <h3>🍳 子どもが飽きてきたとき</h3>
+
+    <strong>🧂 まずは準備すること</strong>
+    <div class="indent">
+        <p>・明るい声</p>
+        <p>・小さな変化を作る気持ち</p>
+        <p>・無理に引き戻さない姿勢</p>
+    </div>
+
+    <strong>🔥 手順</strong>
+    <div class="indent">
+        <p>1. 「ちょっとだけ変えてみようか」と声をかける</p>
+        <p>2. 道具・場所・役割などを少し変える</p>
+        <p>3. できたらすぐに褒める</p>
+        <p>4. それでも難しければ、短い休憩を提案</p>
+    </div>
+
+    <strong>💡 コツ</strong>
+    <div class="indent">
+        <p>・飽きるのは悪いことではない</p>
+        <p>・変化は“ほんの少し”で十分</p>
+        <p>・無理に戻そうとすると逆効果</p>
+    </div>
+
+    <div class="omamori">気分転換も大事な時間ですよ。</div>
 </div>
 
+<!-- カード：保護者 -->
 <div class="card" id="parent">
-    <h2>保護者</h2>
-    <p>テスト用のカードです。</p>
+    <h3>🍳 保護者が見ているとき</h3>
+
+    <strong>🧂 まずは準備すること</strong>
+    <div class="indent">
+        <p>・落ち着いた声</p>
+        <p>・子どもを主役にする姿勢</p>
+        <p>・保護者への安心感</p>
+    </div>
+
+    <strong>🔥 手順</strong>
+    <div class="indent">
+        <p>1. 子どもに向けて説明する（保護者ではなく）</p>
+        <p>2. 子どものできた部分を必ず言葉にする</p>
+        <p>3. 保護者には短く「大丈夫ですよ」と伝える</p>
+        <p>4. 子どもが自分でできた瞬間を一緒に喜ぶ</p>
+    </div>
+
+    <strong>💡 コツ</strong>
+    <div class="indent">
+        <p>・保護者の視線を気にしすぎない</p>
+        <p>・子どもを褒めると保護者も安心する</p>
+        <p>・説明は短く、行動はゆっくり</p>
+    </div>
+
+    <div class="omamori">子どものペースを大切にすれば大丈夫です。</div>
 </div>
 
+<!-- カード：時間 -->
 <div class="card" id="time">
-    <h2>時間</h2>
-    <p>テスト用のカードです。</p>
+    <h3>🍳 時間がない時</h3>
+
+    <strong>🧂 まずは準備すること</strong>
+    <div class="indent">
+        <p>・優先順位を決める気持ち</p>
+        <p>・焦らない姿勢</p>
+        <p>・子どもを急かさない心</p>
+    </div>
+
+    <strong>🔥 手順</strong>
+    <div class="indent">
+        <p>1. まず深呼吸して落ち着く</p>
+        <p>2. 「絶対に必要な工程」だけを選ぶ</p>
+        <p>3. 子どもには「ここだけ一緒にやろう」と伝える</p>
+        <p>4. 終わったら必ず褒める</p>
+    </div>
+
+    <strong>💡 コツ</strong>
+    <div class="indent">
+        <p>・焦ると子どもは動かなくなる</p>
+        <p>・“削る工程”を決めておくと安心</p>
+        <p>・完成よりも“体験”を優先する</p>
+    </div>
+
+    <div class="omamori">焦らなくても、ちゃんと進みますよ。</div>
 </div>
 
 </body>
